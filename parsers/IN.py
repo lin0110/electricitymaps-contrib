@@ -22,7 +22,7 @@ from electricitymap.contrib.lib.types import ZoneKey
 from parsers.lib.exceptions import ParserException
 
 IN_TZ = ZoneInfo("Asia/Kolkata")
-START_DATE_RENEWABLE_DATA = arrow.get("2020-12-17", tzinfo=IN_TZ).datetime
+START_DATE_RENEWABLE_DATA = datetime(2020, 12, 17, tzinfo=IN_TZ)
 CONVERSION_GWH_MW = 0.024
 GENERATION_MAPPING = {
     "THERMAL GENERATION": "coal",
@@ -480,7 +480,7 @@ def daily_to_hourly_production_data(
 
 
 def get_start_of_day(dt: datetime) -> datetime:
-    dt_localised = arrow.get(dt).to(IN_TZ).datetime
+    dt_localised = dt.astimezone(IN_TZ)
     dt_start = dt_localised.replace(hour=0, minute=0, second=0, microsecond=0)
     return dt_start
 
